@@ -6,18 +6,20 @@ import java.sql.SQLException;
 
 public class Util {
 
-  public static Connection getConnection() {
+    private static final String URL = "jdbc:mysql://localhost:3306/kata_test";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "root";
 
-    String url = "jdbc:mysql://localhost:3306/kata_test";
-    String username = "root";
-    String password = "root";
-
-    Connection connection = null;
-    try {
-      connection = DriverManager.getConnection(url, username, password);
-    } catch (SQLException e) {
-      e.printStackTrace();
+    public static Connection getConnection() {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            if (!connection.isClosed()){
+                System.out.println("Соединение с БД установленно!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Ошибка соединения!");
+        }
+        return connection;
     }
-    return connection;
-  }
 }
